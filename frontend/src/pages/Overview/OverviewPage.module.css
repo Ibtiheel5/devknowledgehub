@@ -1,0 +1,132 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  min-height: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: 0 var(--space-8) var(--space-9);
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 1fr);
+  gap: var(--space-8);
+  align-items: center;
+}
+
+.heroInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: var(--text-xs);
+  color: var(--text-faint);
+  font-weight: 680;
+}
+
+.heroTitle {
+  font-size: var(--text-3xl);
+  letter-spacing: -0.03em;
+}
+
+.heroText {
+  color: var(--text-secondary);
+  font-size: var(--text-md);
+  line-height: 1.8;
+  max-width: 560px;
+}
+
+.heroActions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: var(--space-3);
+}
+
+.heroStats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.statTile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-muted);
+}
+
+.statTileLabel {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+
+.statTileValue {
+  font-size: var(--text-2xl);
+  font-weight: 720;
+  letter-spacing: -0.02em;
+}
+
+.gridTwo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.updated {
+  display: inline-block;
+  margin-top: var(--space-4);
+  color: var(--text-faint);
+  font-size: var(--text-sm);
+}
+
+.cellLine {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.cellLine strong {
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cellLine span {
+  color: var(--text-faint);
+  font-size: var(--text-sm);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 1280px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .gridTwo {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .content {
+    padding: 0 var(--space-5) var(--space-8);
+  }
+}

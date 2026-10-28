@@ -1,0 +1,6 @@
+ticket_classifier:
+  model: distilbert-base-uncased
+  epochs: 3
+  lr: 2.0e-5
+  batch_size: 16
+seed: 42

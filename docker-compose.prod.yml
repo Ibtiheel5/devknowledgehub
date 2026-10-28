@@ -1,0 +1,2 @@
+# Configuration de production - à compléter (backend, frontend, reverse proxy).
+services: {}

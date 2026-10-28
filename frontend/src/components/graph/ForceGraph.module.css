@@ -1,0 +1,37 @@
+.wrap {
+  position: relative;
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.svg { width: 100%; height: auto; display: block; touch-action: none; cursor: grab; }
+.svg:active { cursor: grabbing; }
+.link { stroke: var(--border-strong); stroke-width: 1.2; }
+.linkActive { stroke: var(--brand); stroke-width: 2; }
+.node { cursor: pointer; transition: opacity var(--transition); }
+.node circle { stroke: #fff; stroke-width: 1.5; }
+.node circle.selected { stroke: var(--lime-ink); stroke-width: 3; }
+.dim { opacity: 0.15; }
+.label {
+  font-size: 11px;
+  font-family: var(--font-sans);
+  fill: var(--text);
+  paint-order: stroke;
+  stroke: var(--surface-muted);
+  stroke-width: 3px;
+  pointer-events: none;
+}
+.controls { position: absolute; top: 10px; right: 10px; display: flex; flex-direction: column; gap: 4px; }
+.controls button {
+  width: 30px; height: 30px; border-radius: var(--radius-xs);
+  border: 1px solid var(--border-strong); background: var(--surface);
+  color: var(--text-secondary); cursor: pointer; font-size: 16px;
+}
+.controls button:hover { background: var(--brand-softer); }
+.legend {
+  position: absolute; left: 12px; bottom: 10px; display: flex; gap: 14px;
+  font-size: var(--text-xs); color: var(--text-secondary);
+}
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
