@@ -1,6 +1,7 @@
 import psycopg
 from fastapi import APIRouter
 from neo4j import GraphDatabase
+from neo4j.exceptions import Neo4jError
 
 from app.config import settings
 
@@ -12,7 +13,7 @@ def _check_postgres() -> bool:
         with psycopg.connect(settings.postgres_dsn, connect_timeout=2) as conn:
             conn.execute("SELECT 1")
         return True
-    except Exception:
+    except psycopg.Error:
         return False
 
 
@@ -26,7 +27,7 @@ def _check_neo4j() -> bool:
         driver.verify_connectivity()
         driver.close()
         return True
-    except Exception:
+    except (Neo4jError, OSError):
         return False
 
 

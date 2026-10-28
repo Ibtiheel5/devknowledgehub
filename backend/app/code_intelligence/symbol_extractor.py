@@ -23,7 +23,7 @@ def analyze_directory(root: Path) -> RepositoryAnalysis:
         try:
             source = path.read_text(encoding="utf-8", errors="replace")
             files.append(parser.parse(source, rel))
-        except Exception:
+        except OSError:
             continue  # un fichier illisible ne doit pas casser toute l'analyse
 
     return RepositoryAnalysis(root=str(root), languages=dict(languages), files=files)

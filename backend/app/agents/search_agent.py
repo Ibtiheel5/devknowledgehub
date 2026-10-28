@@ -18,8 +18,8 @@ STOPWORDS = {
     "is", "are", "in", "on", "for", "with", "after", "before", "not", "this", "that", "fail",
     "fails", "failing", "function", "method", "class", "file", "to", "it", "my", "i",
     # questions générales / mots courants
-    "que", "fait", "fais", "faire", "projet", "cet", "code", "repo", "dépôt", "depot",
-    "project", "repository", "quoi", "sert", "mon", "ma", "mes", "ton", "ses", "son", "sa",
+    "fait", "fais", "faire", "projet", "cet", "code", "repo", "dépôt", "depot",
+    "project", "repository", "sert", "mon", "ma", "mes", "ton", "ses", "son", "sa",
     "peut", "peux", "veux", "donne", "moi", "montre", "trouve", "svp", "stp", "merci",
     "par", "plus", "moins", "très", "bien", "mais", "donc", "aux", "est-ce", "être", "avoir",
 }

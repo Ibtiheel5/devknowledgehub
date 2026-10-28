@@ -15,14 +15,22 @@ Relations :
 """
 
 CONSTRAINTS = [
-    "CREATE CONSTRAINT dkh_repo_name IF NOT EXISTS "
-    "FOR (r:Repository) REQUIRE r.name IS UNIQUE",
-    "CREATE CONSTRAINT dkh_file_id IF NOT EXISTS "
-    "FOR (f:File) REQUIRE f.id IS UNIQUE",
-    "CREATE CONSTRAINT dkh_symbol_id IF NOT EXISTS "
-    "FOR (s:Symbol) REQUIRE s.id IS UNIQUE",
-    "CREATE CONSTRAINT dkh_module_id IF NOT EXISTS "
-    "FOR (m:Module) REQUIRE m.id IS UNIQUE",
+    (
+        "CREATE CONSTRAINT dkh_repo_name IF NOT EXISTS "
+        "FOR (r:Repository) REQUIRE r.name IS UNIQUE"
+    ),
+    (
+        "CREATE CONSTRAINT dkh_file_id IF NOT EXISTS "
+        "FOR (f:File) REQUIRE f.id IS UNIQUE"
+    ),
+    (
+        "CREATE CONSTRAINT dkh_symbol_id IF NOT EXISTS "
+        "FOR (s:Symbol) REQUIRE s.id IS UNIQUE"
+    ),
+    (
+        "CREATE CONSTRAINT dkh_module_id IF NOT EXISTS "
+        "FOR (m:Module) REQUIRE m.id IS UNIQUE"
+    ),
 ]
 
 

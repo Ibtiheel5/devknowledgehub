@@ -1,5 +1,5 @@
-from app.graph.builder import GraphBuilder
 from app.code_intelligence.parsers.python_parser import PythonParser
+from app.graph.builder import GraphBuilder
 from app.schemas.code import RepositoryAnalysis
 
 SAMPLE = '''\
