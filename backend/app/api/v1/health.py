@@ -1,7 +1,7 @@
 import psycopg
 from fastapi import APIRouter
 from neo4j import GraphDatabase
-from neo4j.exceptions import Neo4jError
+from neo4j.exceptions import DriverError, Neo4jError
 
 from app.config import settings
 
@@ -27,7 +27,7 @@ def _check_neo4j() -> bool:
         driver.verify_connectivity()
         driver.close()
         return True
-    except (Neo4jError, OSError):
+    except (DriverError, Neo4jError, OSError):
         return False
 
 
