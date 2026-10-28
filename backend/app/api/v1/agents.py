@@ -4,7 +4,7 @@ from fastapi import APIRouter, HTTPException
 
 from app.agents.code_assistant import CodeAssistantAgent
 from app.agents.ollama_client import OllamaChatClient, OllamaError
-from app.agents.search_agent import SearchAgent
+from app.agents.research_agent import ResearchAgent
 from app.config import settings
 from app.db.neo4j_client import get_driver
 from app.mlops.run_store import AgentRunStore
@@ -55,5 +55,41 @@ def ask(req: AgentAskRequest):
 
 @router.post("/search", response_model=SearchResponse)
 def search(req: SearchRequest):
-    agent = SearchAgent(GraphTools(get_driver(), req.repo_name))
-    return agent.run(req.question, req.max_results)
+    started = perf_counter()
+    llm = OllamaChatClient(
+        settings.ollama_base_url, settings.ollama_model, settings.ollama_timeout
+    )
+    run_store = AgentRunStore()
+    run_store.ensure_schema()
+    agent = ResearchAgent(
+        req.repo_name,
+        GraphTools(get_driver(), req.repo_name),
+        Retriever(ChunkStore(), get_embedder()),
+        llm,
+    )
+    try:
+        response = agent.run(req.question, req.max_results)
+    except OllamaError as exc:
+        run_store.record(
+            repo_name=req.repo_name,
+            model=settings.ollama_model,
+            status="failed",
+            duration_ms=round((perf_counter() - started) * 1000),
+        )
+        raise HTTPException(status_code=exc.status_code, detail=str(exc)) from exc
+
+    run_store.record(
+        repo_name=req.repo_name,
+        model=response.model or settings.ollama_model,
+        status="success",
+        duration_ms=round((perf_counter() - started) * 1000),
+        retrieved_chunks=sum(
+            call.n_results for call in response.trace if call.tool == "rag_search"
+        ),
+        graph_evidence=sum(
+            item.source in {"symbol_search", "graph_callers", "graph_callees"}
+            for item in response.evidence
+        ),
+        citations=sum(item.id is not None for item in response.evidence),
+    )
+    return response

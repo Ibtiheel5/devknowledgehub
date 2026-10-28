@@ -13,12 +13,12 @@ class OllamaChatClient:
         self.model = model
         self.timeout = timeout
 
-    def chat(self, system_prompt: str, user_prompt: str) -> str:
+    def chat(self, system_prompt: str, user_prompt: str, num_predict: int = 640) -> str:
         body = json.dumps(
             {
                 "model": self.model,
                 "stream": False,
-                "options": {"temperature": 0.1, "num_predict": 640},
+                "options": {"temperature": 0.1, "num_predict": num_predict},
                 "messages": [
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_prompt},

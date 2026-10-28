@@ -1,12 +1,13 @@
-"""Search Agent (v1) — trouve dans le knowledge graph les symboles pertinents pour une question.
-
-Volontairement déterministe (pas de LLM) : c'est la base testable sur laquelle viendront se
-brancher la recherche vectorielle puis le reranking. Sortie = liste d'`Evidence` citables
-(fichier + lignes) que l'Analysis Agent et le Copilot consommeront.
-"""
+"""Deterministic hybrid search over repository chunks and Knowledge Graph symbols."""
 import re
+from typing import Protocol
 
 from app.schemas.agents import Evidence, ProjectOverview, SearchResponse, ToolCall
+from app.schemas.rag import RagSearchResponse
+
+
+class RagSearcher(Protocol):
+    def search(self, repo_name: str, question: str, top_k: int) -> RagSearchResponse: ...
 
 STOPWORDS = {
     # français
@@ -67,16 +68,60 @@ def _score(term: str, hit: dict) -> float:
 
 
 class SearchAgent:
-    def __init__(self, tools, expand_top: int = 3):
+    def __init__(
+        self,
+        tools,
+        expand_top: int = 3,
+        retriever: RagSearcher | None = None,
+        repo_name: str | None = None,
+    ):
         self.tools = tools
         self.expand_top = expand_top
+        self.retriever = retriever
+        self.repo_name = repo_name
 
     def run(self, question: str, max_results: int = 10) -> SearchResponse:
-        if is_overview_question(question):
-            return self._overview(question)
-        terms = extract_terms(question)
         trace: list[ToolCall] = []
         found: dict[str, Evidence] = {}
+
+        if self.retriever and self.repo_name:
+            rag_result = self.retriever.search(self.repo_name, question, max_results)
+            trace.append(
+                ToolCall(tool="rag_search", args={"top_k": max_results}, n_results=len(rag_result.hits))
+            )
+            for hit in rag_result.hits:
+                qualified_name = hit.symbol or hit.file
+                evidence = Evidence(
+                    qualified_name=qualified_name,
+                    kind=hit.kind,
+                    file=hit.file,
+                    start_line=hit.start_line,
+                    end_line=hit.end_line,
+                    score=hit.score,
+                    reason="extrait pertinent trouvé par recherche RAG",
+                    source="rag",
+                    snippet=hit.snippet,
+                )
+                existing = found.get(qualified_name)
+                if existing:
+                    existing.snippet = hit.snippet
+                    existing.score = max(existing.score, hit.score)
+                    existing.source = "rag"
+                    existing.reason += " et confirmé par le graphe"
+                else:
+                    found[qualified_name] = evidence
+
+        if is_overview_question(question):
+            overview = self._overview(question)
+            for evidence in overview.evidence:
+                found.setdefault(evidence.qualified_name, evidence)
+            overview.evidence = sorted(
+                found.values(), key=lambda evidence: (-evidence.score, evidence.qualified_name)
+            )[:max_results]
+            overview.trace.extend(trace)
+            return overview
+
+        terms = extract_terms(question)
 
         # 1) recherche de symboles pour chaque terme
         for term in terms:
@@ -85,9 +130,10 @@ class SearchAgent:
             for h in hits:
                 score = _score(term, h)
                 qn = h["qualified_name"]
-                if qn in found and found[qn].score >= score:
+                existing = found.get(qn)
+                if existing and existing.score >= score:
                     continue
-                found[qn] = Evidence(
+                evidence = Evidence(
                     qualified_name=qn,
                     kind=h.get("kind"),
                     file=h.get("file"),
@@ -97,9 +143,17 @@ class SearchAgent:
                     reason=f"correspond à « {term} »",
                     source="symbol_search",
                 )
+                if existing and existing.snippet:
+                    evidence.snippet = existing.snippet
+                    evidence.source = "rag"
+                    evidence.reason += " et confirmé par le graphe"
+                found[qn] = evidence
 
         # 2) expansion par le graphe autour des meilleurs résultats
-        top = sorted(found.values(), key=lambda e: -e.score)[: self.expand_top]
+        top = sorted(
+            (evidence for evidence in found.values() if evidence.qualified_name != evidence.file),
+            key=lambda evidence: -evidence.score,
+        )[: self.expand_top]
         for ev in top:
             for tool_name, source, label in (
                 ("callers", "graph_callers", "appelle"),

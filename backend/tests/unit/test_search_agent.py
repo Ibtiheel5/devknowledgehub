@@ -1,4 +1,5 @@
 from app.agents.search_agent import SearchAgent, extract_terms, is_overview_question
+from app.schemas.rag import RagHit, RagSearchResponse
 
 
 class FakeTools:
@@ -38,6 +39,30 @@ class FakeTools:
         }
 
 
+class FakeRetriever:
+    def __init__(self):
+        self.calls = []
+
+    def search(self, repo_name, question, top_k):
+        self.calls.append((repo_name, question, top_k))
+        return RagSearchResponse(
+            question=question,
+            terms=[],
+            hits=[
+                RagHit(
+                    file="docs/authentication.md",
+                    kind="document",
+                    symbol=None,
+                    start_line=4,
+                    end_line=12,
+                    score=0.82,
+                    vector_score=0.78,
+                    snippet="Authentication flow and token refresh.",
+                )
+            ],
+        )
+
+
 def test_extract_terms_prioritizes_code_identifiers():
     terms = extract_terms("Pourquoi AuthService.refresh_token échoue après l'expiration ?")
     assert terms[0] in {"AuthService.refresh_token", "refresh_token", "AuthService"}
@@ -73,3 +98,58 @@ def test_general_question_gives_project_overview():
 
 def test_generic_words_are_not_search_terms():
     assert extract_terms("que fait ce projet") == []
+
+
+def test_agent_searches_rag_and_returns_citable_document_evidence():
+    retriever = FakeRetriever()
+    response = SearchAgent(
+        FakeTools(), retriever=retriever, repo_name="demo"
+    ).run("Where can I read about authentication?", max_results=4)
+
+    assert retriever.calls == [("demo", "Where can I read about authentication?", 4)]
+    assert response.evidence[0].qualified_name == "docs/authentication.md"
+    assert response.evidence[0].source == "rag"
+    assert response.evidence[0].citation == "docs/authentication.md:4-12"
+    assert response.evidence[0].snippet == "Authentication flow and token refresh."
+    assert response.trace[0].tool == "rag_search"
+    assert not any(step.tool in {"callers", "callees"} for step in response.trace)
+
+
+def test_overview_search_includes_rag_results():
+    response = SearchAgent(
+        FakeTools(), retriever=FakeRetriever(), repo_name="demo"
+    ).run("Que fait ce projet ?")
+
+    assert response.intent == "overview"
+    assert any(e.source == "rag" for e in response.evidence)
+    assert any(step.tool == "rag_search" for step in response.trace)
+
+
+def test_agent_keeps_rag_snippet_when_graph_finds_same_symbol():
+    class MatchingRetriever(FakeRetriever):
+        def search(self, repo_name, question, top_k):
+            return RagSearchResponse(
+                question=question,
+                terms=["AuthService"],
+                hits=[
+                    RagHit(
+                        file="backend/services/auth.py",
+                        kind="class",
+                        symbol="AuthService",
+                        start_line=10,
+                        end_line=200,
+                        score=0.82,
+                        vector_score=0.78,
+                        snippet="class AuthService: ...",
+                    )
+                ],
+            )
+
+    response = SearchAgent(
+        FakeTools(), retriever=MatchingRetriever(), repo_name="demo"
+    ).run("AuthService")
+    evidence = next(item for item in response.evidence if item.qualified_name == "AuthService")
+
+    assert evidence.source == "rag"
+    assert evidence.snippet == "class AuthService: ..."
+    assert "confirmé par le graphe" in evidence.reason

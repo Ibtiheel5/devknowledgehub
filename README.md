@@ -36,6 +36,9 @@ cd C:\Users\asus\Desktop\devknowledgehub\backend
 Le Copilot utilise l'endpoint `/api/v1/agents/ask` et combine les extraits RAG avec
 les symboles et relations du graphe Neo4j. Les réponses affichent les sources.
 Le parcours d'import d'un dépôt construit le graphe puis crée également son index RAG.
+L'endpoint `POST /api/v1/agents/search` lance un agent en lecture seule : après une première
+recherche RAG/graphe, Ollama choisit jusqu'à trois recherches complémentaires parmi des outils
+autorisés, puis synthétise une réponse citée. L'agent ne modifie ni n'exécute le code.
 La page MLOps affiche les métriques agrégées des appels Copilot (modèle, durée,
 statut, nombre d'extraits et citations). Le texte des questions et réponses n'est
 pas stocké dans ces métriques.

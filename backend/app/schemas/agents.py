@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field
 class Evidence(BaseModel):
     """Une preuve citable : un symbole du code avec son emplacement exact."""
 
+    id: str | None = None
     qualified_name: str
     kind: str | None = None
     file: str | None = None
@@ -13,7 +14,10 @@ class Evidence(BaseModel):
     end_line: int | None = None
     score: float = 0.0
     reason: str  # pourquoi ce résultat a été retenu (match exact, appelant de X, ...)
-    source: Literal["symbol_search", "graph_callers", "graph_callees", "overview"] = "symbol_search"
+    source: Literal["rag", "symbol_search", "graph_callers", "graph_callees", "overview"] = (
+        "symbol_search"
+    )
+    snippet: str | None = None
 
     @property
     def citation(self) -> str:
@@ -72,6 +76,8 @@ class SearchResponse(BaseModel):
     intent: Literal["search", "overview"] = "search"
     overview: ProjectOverview | None = None
     question: str
+    answer: str | None = None
+    model: str | None = None
     terms: list[str]
     evidence: list[Evidence]
     trace: list[ToolCall]
