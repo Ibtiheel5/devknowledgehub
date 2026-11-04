@@ -1,0 +1,99 @@
+stages:
+  ticket_classifier:
+    cmd: >-
+      python -m dkh_ml.models.ticket_classifier.train
+      --data ${data.tickets}
+      --model models/ticket_classifier.joblib
+      --metrics reports/ticket_metrics.json
+      --test-size ${ticket_classifier.test_size}
+      --seed ${seed}
+    env:
+      PYTHONPATH: src
+    deps:
+      - src/dkh_ml
+      - tests/fixtures/tickets.jsonl
+    params:
+      - ticket_classifier
+      - seed
+    outs:
+      - models/ticket_classifier.joblib
+    metrics:
+      - reports/ticket_metrics.json:
+          cache: false
+
+  project_classifier:
+    cmd: >-
+      python -m dkh_ml.models.project_classifier.train
+      --data ${data.projects}
+      --model models/project_classifier.joblib
+      --metrics reports/project_metrics.json
+      --test-size ${project_classifier.test_size}
+      --seed ${seed}
+    env:
+      PYTHONPATH: src
+    deps:
+      - src/dkh_ml
+      - tests/fixtures/projects.jsonl
+    params:
+      - project_classifier
+      - seed
+    outs:
+      - models/project_classifier.joblib
+    metrics:
+      - reports/project_metrics.json:
+          cache: false
+
+  clone_detector:
+    cmd: >-
+      python -m dkh_ml.models.clone_detector.evaluate
+      --data ${data.clone_pairs}
+      --threshold ${clone_detector.threshold}
+      --metrics reports/clone_metrics.json
+    env:
+      PYTHONPATH: src
+    deps:
+      - src/dkh_ml
+      - tests/fixtures/clone_pairs.jsonl
+    params:
+      - clone_detector
+    metrics:
+      - reports/clone_metrics.json:
+          cache: false
+
+  vulnerability_detector:
+    cmd: >-
+      python -m dkh_ml.models.vulnerability_detector.train
+      --data ${data.vulnerability}
+      --model models/vulnerability_detector.joblib
+      --metrics reports/vulnerability_metrics.json
+      --test-size ${vulnerability_detector.test_size}
+      --seed ${seed}
+    env:
+      PYTHONPATH: src
+    deps:
+      - src/dkh_ml
+      - tests/fixtures/vulnerability.jsonl
+    params:
+      - vulnerability_detector
+      - seed
+    outs:
+      - models/vulnerability_detector.joblib
+    metrics:
+      - reports/vulnerability_metrics.json:
+          cache: false
+
+  code_smell:
+    cmd: >-
+      python -m dkh_ml.models.code_smell.evaluate
+      --data ${data.code_smells}
+      --metrics reports/code_smell_metrics.json
+    env:
+      PYTHONPATH: src
+    deps:
+      - src/dkh_ml
+      - tests/fixtures/code_smells.jsonl
+    params:
+      - code_smell
+    metrics:
+      - reports/code_smell_metrics.json:
+          cache: false

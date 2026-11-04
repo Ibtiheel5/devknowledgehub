@@ -1,0 +1,77 @@
+{
+  "accuracy": 0.75,
+  "macro_f1": 0.6667,
+  "weighted_f1": 0.6667,
+  "per_class": {
+    "application": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 1
+    },
+    "library": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "support": 1
+    },
+    "service": {
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.6667,
+      "support": 1
+    },
+    "full-stack": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 1
+    }
+  },
+  "confusion_matrix": {
+    "labels": [
+      "application",
+      "library",
+      "service",
+      "full-stack"
+    ],
+    "matrix": [
+      [
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ]
+  },
+  "n_samples": 4,
+  "label_distribution": {
+    "library": 1,
+    "full-stack": 1,
+    "application": 1,
+    "service": 1
+  },
+  "split": {
+    "train": 12,
+    "test": 4,
+    "seed": 42
+  }
+}

@@ -1,0 +1,9 @@
+name: CD Deploy
+on:
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "TODO - déploiement à définir en fin de projet"

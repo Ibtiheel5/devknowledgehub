@@ -1,0 +1,104 @@
+:root {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+
+  /* Surfaces */
+  --surface: #FFFEFC;
+  --surface-muted: #F7F3ED;
+  --surface-sunken: #f0e7df;
+  --canvas: #F7F3ED;
+  --canvas-accent: #f5ede4;
+
+  /* Bordures */
+  --border: #E7DED3;
+  --border-subtle: #f0e7df;
+  --border-strong: #d9c9bc;
+
+  /* Texte */
+  --text: #30251F;
+  --text-secondary: #5f4f44;
+  --text-muted: #81766D;
+  --text-faint: #9b8b82;
+
+  /* Marque */
+  --brand: #B9684B;
+  --brand-hover: #a55a3f;
+  --brand-soft: #f6e4dc;
+  --brand-softer: #fbf3ef;
+  --brand-ring: rgba(185, 104, 75, 0.22);
+  --brand-gradient: linear-gradient(135deg, #b9684b 0%, #c87a5d 100%);
+  --lime: #f0fdf4;
+  --lime-ink: #166534;
+
+  /* Sidebar */
+  --sidebar-bg: #30251F;
+  --sidebar-bg-hover: #3a2d26;
+  --sidebar-active: #46352d;
+  --sidebar-text: #d9ccc3;
+  --sidebar-text-strong: #f7f3ed;
+  --sidebar-muted: #b9a99f;
+  --sidebar-border: #45362e;
+  --sidebar-accent: #d89b7a;
+  --sidebar-accent-ink: #30251F;
+  --sidebar-accent-soft: rgba(216, 155, 122, 0.16);
+  --sidebar-accent-hover: rgba(216, 155, 122, 0.26);
+  --sidebar-accent-border: rgba(216, 155, 122, 0.38);
+
+  /* États */
+  --success: #4f7c3e;
+  --success-soft: #f0f6ec;
+  --warning: #b7791f;
+  --warning-soft: #fdf5e6;
+  --danger: #b94a48;
+  --danger-soft: #fbeaea;
+  --info: #8c6a4f;
+  --info-soft: #f5f0ea;
+  --violet: #7c5a4a;
+  --violet-soft: #f5f1ed;
+
+  /* Rayons */
+  --radius-xs: 6px;
+  --radius-sm: 9px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-pill: 999px;
+
+  /* Ombres */
+  --shadow-xs: 0 1px 2px rgba(48, 37, 31, 0.05);
+  --shadow-sm: 0 1px 2px rgba(48, 37, 31, 0.05), 0 2px 6px rgba(48, 37, 31, 0.04);
+  --shadow-md: 0 8px 24px rgba(48, 37, 31, 0.08), 0 2px 6px rgba(48, 37, 31, 0.04);
+  --shadow-lg: 0 20px 48px rgba(48, 37, 31, 0.16);
+
+  /* Espacements */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 56px;
+
+  /* Typographie */
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 14px;
+  --text-md: 15px;
+  --text-lg: 18px;
+  --text-xl: 22px;
+  --text-2xl: 28px;
+  --text-3xl: 32px;
+
+  /* Structure */
+  --sidebar-width: 272px;
+  --sidebar-width-collapsed: 78px;
+  --topbar-height: 72px;
+  --content-max-width: 1480px;
+
+  /* Animations */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: 160ms var(--ease);
+}
