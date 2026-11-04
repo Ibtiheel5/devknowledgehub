@@ -1,0 +1,115 @@
+.button,
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: transform var(--transition), background var(--transition),
+    color var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.button {
+  min-height: 38px;
+  padding: 0 var(--space-4);
+}
+
+.iconButton {
+  padding: 0;
+  width: 38px;
+  height: 38px;
+}
+
+.sm {
+  min-height: 32px;
+  padding: 0 var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.sm.iconButton {
+  width: 32px;
+  height: 32px;
+}
+
+.lg {
+  min-height: 42px;
+  padding: 0 var(--space-5);
+  font-size: var(--text-md);
+}
+
+.lg.iconButton {
+  width: 42px;
+  height: 42px;
+}
+
+.button:active:not(:disabled),
+.iconButton:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.ghost:hover:not(:disabled) {
+  background: var(--surface-sunken);
+  color: var(--text);
+}
+
+.primary {
+  background: var(--brand-gradient);
+  color: #ffffff;
+  box-shadow: 0 1px 2px rgba(185, 104, 75, 0.24), 0 6px 16px rgba(185, 104, 75, 0.18);
+}
+
+.primary:hover:not(:disabled) {
+  filter: brightness(1.05);
+  box-shadow: 0 2px 4px rgba(185, 104, 75, 0.26), 0 10px 22px rgba(185, 104, 75, 0.22);
+}
+
+.outline {
+  background: var(--surface);
+  color: var(--text-secondary);
+  border-color: var(--border-strong);
+}
+
+.outline:hover:not(:disabled) {
+  border-color: var(--brand);
+  background: var(--brand-softer);
+  color: var(--brand);
+}
+
+.subtle {
+  background: var(--brand-soft);
+  color: var(--brand);
+}
+
+.subtle:hover:not(:disabled) {
+  background: #f0d9cf;
+}
+
+.danger {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.button:disabled,
+.iconButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.button:focus-visible,
+.iconButton:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--brand-ring);
+}
+
+.loading {
+  cursor: wait;
+}
