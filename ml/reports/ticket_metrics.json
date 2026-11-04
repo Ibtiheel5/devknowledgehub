@@ -1,0 +1,60 @@
+{
+  "accuracy": 0.875,
+  "macro_f1": 0.8413,
+  "weighted_f1": 0.8631,
+  "per_class": {
+    "BUG": {
+      "precision": 0.75,
+      "recall": 1.0,
+      "f1": 0.8571,
+      "support": 3
+    },
+    "FEATURE": {
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6667,
+      "support": 2
+    },
+    "TECHNICAL_DEBT": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 3
+    }
+  },
+  "confusion_matrix": {
+    "labels": [
+      "BUG",
+      "FEATURE",
+      "TECHNICAL_DEBT"
+    ],
+    "matrix": [
+      [
+        3,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        3
+      ]
+    ]
+  },
+  "n_samples": 8,
+  "label_distribution": {
+    "BUG": 3,
+    "FEATURE": 2,
+    "TECHNICAL_DEBT": 3
+  },
+  "split": {
+    "train": 31,
+    "test": 8,
+    "seed": 42
+  }
+}

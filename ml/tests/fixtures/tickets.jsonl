@@ -1,0 +1,40 @@
+{"title": "Crash on login with NullPointerException", "description": "The application crashes when submitting the login form with an empty email.", "label": "BUG"}
+{"title": "Upload throws 500 error", "description": "Uploading an avatar returns an internal server error and the page breaks.", "label": "BUG"}
+{"title": "Fix broken checkout payment flow", "description": "Payment fails for every credit card and the order stays pending.", "label": "BUG"}
+{"title": "Password reset link expired", "description": "Users cannot reset their password because the email link is always expired.", "label": "BUG"}
+{"title": "Settings page crashes on Android", "description": "Opening the settings screen causes a crash on Android 14 devices.", "label": "BUG"}
+{"title": "Search returns wrong results for accents", "description": "Searching accented words returns incorrect and missing matches.", "label": "BUG"}
+{"title": "Login button unresponsive after logout", "description": "After logging out the login button does not react to clicks.", "label": "BUG"}
+{"title": "Stack trace when deleting empty project", "description": "Deleting a project without files raises an unexpected exception.", "label": "BUG"}
+{"title": "Large upload times out", "description": "Uploading files larger than 100MB fails with a timeout error.", "label": "BUG"}
+{"title": "Wrong total price in cart", "description": "The cart displays an incorrect total amount after applying a coupon.", "label": "BUG"}
+{"title": "Dashboard widget throws exception", "description": "The activity widget fails to load and shows an error message.", "label": "BUG"}
+
+{"title": "Add customizable accent colors", "description": "Users want to choose accent colors for the interface in their profile settings.", "label": "FEATURE"}
+{"title": "Support SSO login with Google and GitHub", "description": "Allow users to sign in using Google or GitHub single sign-on.", "label": "FEATURE"}
+{"title": "Allow exporting reports as CSV", "description": "Add a button so users can export dashboard reports to CSV files.", "label": "FEATURE"}
+{"title": "New endpoint for user notifications", "description": "Create an API endpoint returning the latest notifications for a user.", "label": "FEATURE"}
+{"title": "Add pagination to project list", "description": "The project list should support pages and a configurable page size.", "label": "FEATURE"}
+{"title": "Implement search filters by language", "description": "Let users filter repositories by programming language in the search page.", "label": "FEATURE"}
+{"title": "Provide a mobile layout for dashboard", "description": "Add a responsive mobile layout for the analytics dashboard.", "label": "FEATURE"}
+{"title": "Add ability to invite team members", "description": "Workspace owners should be able to invite colleagues by email.", "label": "FEATURE"}
+{"title": "Support multi-language interface", "description": "Allow translating the interface into French and English.", "label": "FEATURE"}
+{"title": "Create weekly email digest", "description": "Send a weekly summary email with project activity to subscribers.", "label": "FEATURE"}
+{"title": "Add comments on pull requests", "description": "Enable inline comments on the pull request diff view.", "label": "FEATURE"}
+{"title": "Allow renaming repositories", "description": "Users should be able to rename an indexed repository from settings.", "label": "FEATURE"}
+{"title": "Refactor authentication module for clarity", "description": "Split the authentication module into smaller cohesive services.", "label": "TECHNICAL_DEBT"}
+{"title": "Upgrade dependencies to latest versions", "description": "Upgrade outdated dependencies and remove deprecated packages.", "label": "TECHNICAL_DEBT"}
+{"title": "Improve unit test coverage for services", "description": "Add missing unit tests and increase coverage of the service layer.", "label": "TECHNICAL_DEBT"}
+{"title": "Remove duplicated validation code", "description": "Extract shared validation helpers and remove duplicated logic.", "label": "TECHNICAL_DEBT"}
+{"title": "Extract shared HTTP client utility", "description": "Consolidate repeated HTTP client code into one reusable utility.", "label": "TECHNICAL_DEBT"}
+{"title": "Migrate legacy code to type hints", "description": "Add type annotations to legacy modules and enable strict checks.", "label": "TECHNICAL_DEBT"}
+{"title": "Simplify database access layer", "description": "Reduce boilerplate in the database access layer with a repository pattern.", "label": "TECHNICAL_DEBT"}
+{"title": "Reduce technical debt in parser package", "description": "Refactor the parser package and remove dead code paths.", "label": "TECHNICAL_DEBT"}
+{"title": "Reorganize backend folder structure", "description": "Move modules into cleaner packages to improve maintainability.", "label": "TECHNICAL_DEBT"}
+{"title": "Replace deprecated logging calls", "description": "Replace deprecated logging helpers across the codebase.", "label": "TECHNICAL_DEBT"}
+{"title": "Document missing docstrings on public API", "description": "Public functions and modules are undocumented and need docstrings.", "label": "TECHNICAL_DEBT"}
+{"title": "Clean up unused feature flags", "description": "Remove obsolete feature flags and their associated branches.", "label": "TECHNICAL_DEBT"}
+{"title": "Theme toggle causes visual glitches", "description": "Switching the theme causes visual glitches in the sidebar.", "label": "BUG"}
+{"title": "Toggling dark mode breaks page layout", "description": "Toggling dark mode breaks the page layout and navigation.", "label": "BUG"}
+{"title": "Document undocumented public modules", "description": "Public modules are undocumented and missing docstrings.", "label": "TECHNICAL_DEBT"}
+{"title": "Add missing documentation for API endpoints", "description": "API endpoints are missing documentation and docstrings.", "label": "TECHNICAL_DEBT"}

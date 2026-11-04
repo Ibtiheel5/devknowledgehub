@@ -1,0 +1,8 @@
+{"code_a": "def add(a, b):\n    return a + b\n", "code_b": "def add(x, y):\n    return x + y\n", "label": "CLONE"}
+{"code_a": "def total(items):\n    return sum(i.price for i in items)\n", "code_b": "def compute_total(products):\n    return sum(p.price for p in products)\n", "label": "CLONE"}
+{"code_a": "public int square(int x) {\n    return x * x;\n}\n", "code_b": "public int square(int value) {\n    return value * value;\n}\n", "label": "CLONE"}
+{"code_a": "for (const user of users) {\n  console.log(user.name);\n}\n", "code_b": "for (const item of users) {\n  console.log(item.name);\n}\n", "label": "CLONE"}
+{"code_a": "def add(a, b):\n    return a + b\n", "code_b": "class Report:\n    def render(self):\n        return '<html></html>'\n", "label": "DIFFERENT"}
+{"code_a": "SELECT * FROM users WHERE active = true;\n", "code_b": "def send_email(address, subject):\n    smtp.send(address, subject)\n", "label": "DIFFERENT"}
+{"code_a": "import os\nos.remove(path)\n", "code_b": "const total = items.reduce((acc, item) => acc + item.price, 0);\n", "label": "DIFFERENT"}
+{"code_a": "class Cache:\n    def get(self, key):\n        return self._store.get(key)\n", "code_b": "func Parse(input string) (Config, error) {\n    return decode(input)\n}\n", "label": "DIFFERENT"}

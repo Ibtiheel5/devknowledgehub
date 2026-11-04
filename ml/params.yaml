@@ -1,0 +1,43 @@
+seed: 42
+
+data:
+  tickets: tests/fixtures/tickets.jsonl
+  projects: tests/fixtures/projects.jsonl
+  clone_pairs: tests/fixtures/clone_pairs.jsonl
+  vulnerability: tests/fixtures/vulnerability.jsonl
+  code_smells: tests/fixtures/code_smells.jsonl
+
+ticket_classifier:
+  model: tfidf+logreg
+  max_features: 20000
+  c: 1.0
+  test_size: 0.2
+
+project_classifier:
+  model: tfidf+logreg
+  max_features: 30000
+  c: 1.0
+  test_size: 0.2
+
+clone_detector:
+  model: lexical+jaccard
+  threshold: 0.75
+
+vulnerability_detector:
+  model: char-tfidf+logreg
+  max_features: 50000
+  c: 1.0
+  test_size: 0.2
+
+code_smell:
+  model: structural-rules
+  long_method_lines: 40
+  max_params: 5
+  max_nesting: 4
+
+# Configuration de référence pour l'approche avancée (non exécutée dans la baseline).
+ticket_classifier_advanced:
+  model: distilbert-base-uncased
+  epochs: 3
+  lr: 2.0e-5
+  batch_size: 16

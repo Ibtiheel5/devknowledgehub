@@ -1,0 +1,42 @@
+{
+  "accuracy": 1.0,
+  "macro_f1": 1.0,
+  "weighted_f1": 1.0,
+  "per_class": {
+    "CLONE": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 4
+    },
+    "DIFFERENT": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 4
+    }
+  },
+  "confusion_matrix": {
+    "labels": [
+      "CLONE",
+      "DIFFERENT"
+    ],
+    "matrix": [
+      [
+        4,
+        0
+      ],
+      [
+        0,
+        4
+      ]
+    ]
+  },
+  "n_samples": 8,
+  "label_distribution": {
+    "CLONE": 4,
+    "DIFFERENT": 4
+  },
+  "threshold": 0.75,
+  "n_pairs": 8
+}
