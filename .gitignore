@@ -9,4 +9,3 @@ data/
 frontend/dist/
 *.bak
 frontend/.vite/
-ml/models/ticket_classifier_transformer/
